@@ -27,6 +27,11 @@ export const HRDashboardPage = () => {
             path: "/HR/dashboard/leaves"
         },
         {
+            image: "/../../src/assets/HR-Dashboard/salary.png",
+            dataname: "salaries",
+            path: "/HR/dashboard/salaries"
+        },
+        {
             image: "/../../src/assets/HR-Dashboard/request.png",
             dataname: "requestes",
             path: "/HR/dashboard/requestes"

@@ -11,11 +11,12 @@ export const HandleHRDashboard = async (req, res) => {
         const employees = await Employee.countDocuments({ organizationID: req.ORGID })
         const departments = await Department.countDocuments({ organizationID: req.ORGID })
         const leaves = await Leave.countDocuments({ organizationID: req.ORGID })
+        const salaries = await Salary.countDocuments({ organizationID: req.ORGID })
         const requestes = await GenerateRequest.countDocuments({ organizationID: req.ORGID })
         const balance = await Balance.find({ organizationID: req.ORGID })
         const notices = await Notice.find({ organizationID: req.ORGID }).sort({ createdAt: -1 }).limit(10).populate("createdby", "firstname lastname")
 
-        return res.status(200).json({ success: true, data: { employees: employees, departments: departments, leaves: leaves, requestes: requestes, balance: balance, notices: notices } })
+        return res.status(200).json({ success: true, data: { employees: employees, departments: departments, leaves: leaves, salaries: salaries, requestes: requestes, balance: balance, notices: notices } })
     }
     catch (error) {
         return res.status(500).json({ success: false, error: error, message: "internal server error" })

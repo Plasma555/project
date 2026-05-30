@@ -7,6 +7,8 @@ import { ResetHRPasswordPage } from "../pages/HumanResources/resetpassword.jsx"
 import { HRDashboardPage } from "../pages/HumanResources/Dashboard Childs/dashboardpage.jsx"
 import { HREmployeesPage } from "../pages/HumanResources/Dashboard Childs/employeespage.jsx"
 import { HRDepartmentPage } from "../pages/HumanResources/Dashboard Childs/departmentpage.jsx"
+import { HRLeavesPage } from "../pages/HumanResources/Dashboard Childs/leavespage.jsx"
+import { HRSalariesPage } from "../pages/HumanResources/Dashboard Childs/salaryspage.jsx"
 import { HRProtectedRoutes } from "./HRprotectedroutes.jsx"
 export const HRRoutes = [
     {
@@ -32,6 +34,14 @@ export const HRRoutes = [
             {
                 path: "/HR/dashboard/departments",
                 element: <HRDepartmentPage />
+            },
+            {
+                path: "/HR/dashboard/leaves",
+                element: <HRLeavesPage />
+            },
+            {
+                path: "/HR/dashboard/salaries",
+                element: <HRSalariesPage />
             }
         ]
     },

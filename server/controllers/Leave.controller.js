@@ -100,9 +100,10 @@ export const HandleUpdateLeaveByEmployee = async (req, res) => {
 
 export const HandleUpdateLeavebyHR = async (req, res) => {
     try {
-        const { leaveID, status, HRID } = req.body
+        const { leaveID, status } = req.body
+        const HRID = req.HRid
 
-        if (!leaveID || !status || !HRID) {
+        if (!leaveID || !status) {
             return res.status(400).json({ success: false, message: "All fields are required" })
         }
 

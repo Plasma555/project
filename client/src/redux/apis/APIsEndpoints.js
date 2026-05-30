@@ -24,6 +24,16 @@ export const HREmployeesPageEndPoints = {
     DELETE: (EMID) => `/api/v1/employee/delete-employee/${EMID}`
 }
 
+export const HRLeavesPageEndPoints = {
+    GETALL: "/api/v1/leave/all",
+    UPDATE_STATUS: "/api/v1/leave/HR-update-leave"
+}
+
+export const HRSalariesPageEndPoints = {
+    GETALL: "/api/v1/salary/all",
+    UPDATE: "/api/v1/salary/update-salary"
+}
+
 export const HRDepartmentPageEndPoints = {
     GETALL: "/api/v1/department/all",
     CREATE: "/api/v1/department/create-department",

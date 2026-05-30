@@ -75,26 +75,31 @@ export const HandleSalary = async (req, res) => {
 }
 
 export const HandleUpdateSalary = async (req, res) => {
-    const { salaryID, basicpay, bonusePT, deductionPT, duedate, currency, status } = req.body
     try {
+        const { salaryID, basicpay, bonusePT, deductionPT, duedate, currency, status } = req.body
 
-        const bonuses = (basicpay * bonusePT) / 100
-        const deductions = (basicpay * deductionPT) / 100
-        const netpay = (basicpay + bonuses) - deductions
-
-        const salary = await Salary.findByIdAndUpdate(salaryID, {
-            basicpay: basicpay,
-            bonuses: bonuses,
-            deductions: deductions,
-            netpay: netpay,
-            currency: currency,
-            duedate: new Date(duedate),
-            status: status
-        }, { new: true })
-
+        const salary = await Salary.findById(salaryID)
         if (!salary) {
             return res.status(404).send({ success: false, message: "Salary record does not found" })
         }
+
+        const actualBasic = basicpay !== undefined ? basicpay : salary.basicpay
+        const bonusPct = bonusePT !== undefined ? bonusePT : (salary.basicpay ? (salary.bonuses / salary.basicpay) * 100 : 0)
+        const deductionPct = deductionPT !== undefined ? deductionPT : (salary.basicpay ? (salary.deductions / salary.basicpay) * 100 : 0)
+
+        const bonuses = (actualBasic * bonusPct) / 100
+        const deductions = (actualBasic * deductionPct) / 100
+        const netpay = (actualBasic + bonuses) - deductions
+
+        salary.basicpay = actualBasic
+        salary.bonuses = bonuses
+        salary.deductions = deductions
+        salary.netpay = netpay
+        salary.currency = currency !== undefined ? currency : salary.currency
+        salary.duedate = duedate !== undefined ? new Date(duedate) : salary.duedate
+        salary.status = status !== undefined ? status : salary.status
+
+        await salary.save()
 
         return res.status(200).json({ success: true, message: "Salary updated successfully", data: salary })
 
